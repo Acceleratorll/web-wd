@@ -3,12 +3,13 @@ import {
   Form,
   Button,
   Card,
-  CardHeader,
   CardBody,
   CardTitle,
   CardText,
   CardFooter
 } from "reactstrap";
+
+import swal from "sweetalert";
 
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -50,11 +51,12 @@ class MasterForm extends Component {
   // Trigger an alert on form submission
   handleSubmit = event => {
     event.preventDefault();
-    const { email, username, password } = this.state;
-    alert(`Your registration detail: \n 
-      Email: ${email} \n 
-      Username: ${username} \n
-      Password: ${password}`);
+    swal({
+      title: "Good job!",
+      text: "Data anda telah tersimpan!",
+      icon: "success",
+      button: "Submit!",
+    })
   };
 
   // Test current step with ternary

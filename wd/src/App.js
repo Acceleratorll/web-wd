@@ -6,7 +6,8 @@ import Faq from './pages/user/Faq';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/user/Login';
 import Register from './pages/user/Register';
-import Admin from './pages/admin/Admin';
+// import Admin from './pages/p/Admin';
+import AdminNew from './pages/Admin';
 import Template from './pages/template/Template';
 import MasterForm from './pages/user/MultiStepForm/MasterForm';
 
@@ -23,7 +24,8 @@ function App() {
           <Route path="/masuk" element={<Login />} />
           <Route path="/buat_undangan" element={<LandingPage />} />
           <Route path="/FAQ" element={<Faq />} />
-          <Route path="/admin" element={<Admin />} />
+          {/* <Route path="/admin" element={<Admin />} /> */}
+          <Route path="/admin/*" element={<AdminNew />} />
           <Route path="/template" element={<Template />} />
           <Route path="/isiData" element={<MasterForm />} />
         </Routes>

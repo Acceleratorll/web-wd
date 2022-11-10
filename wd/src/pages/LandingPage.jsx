@@ -8,24 +8,20 @@ import Steps from '../component/Steps'
 import Template from '../component/Template'
 import Testimonials from '../component/Testimonials'
 import Trusted from '../component/Trusted'
+import Fade from 'react-reveal/Fade'
 
 const LandingPage = () => {
-
-    useEffect(() => {
-        Aos.init({
-            duration: 100
-        })
-        Aos.refresh()
-    }, []);
 
     return (
         <>
             <Header />
-            <Hero />
-            {/* <Sponshorship /> */}
-            <Trusted />
-            <Steps />
-            <Template />
+            <Fade bottom>
+                <Hero />
+                {/* <Sponshorship /> */}
+                <Trusted />
+                <Steps />
+                <Template />
+            </Fade>
             <Featured />
             <Testimonials />
             <Footer />
