@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Brides extends Model
 {
+    protected $fillable = [
+        'name',
+        'father',
+        'mother',
+    ];
+
     use HasFactory;
 
     public function invitation()

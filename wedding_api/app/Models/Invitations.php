@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invitations extends Model
 {
+    protected $fillable = [
+        'date',
+        'time_start',
+        'time_end',
+    ];
     use HasFactory;
     
     public function user()

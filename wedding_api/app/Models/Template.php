@@ -13,5 +13,4 @@ class Template extends Model
     {
         return $this->hasMany(Invitations::class);
     }
-    
 }
