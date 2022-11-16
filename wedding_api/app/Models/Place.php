@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Place extends Model
 {
+    protected $fillable = [
+        'name',
+        'place_desc',
+    ];
     use HasFactory;
     
     public function invitation()

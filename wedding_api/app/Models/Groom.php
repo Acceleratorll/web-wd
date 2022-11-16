@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Groom extends Model
 {
+    protected $fillable = [
+        'name',
+        'father',
+        'mother',
+    ];
     use HasFactory;
     
     public function invitation()
