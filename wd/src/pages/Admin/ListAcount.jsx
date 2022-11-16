@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 import LayoutDashboard from './LayoutDashboard';
-import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModalDelete from './ModalDelete';
 import { IconButton, CircularProgress } from '@mui/material'
 // import ModalConfirm from '../../component/ModalConfirm';
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { eToast, wToast } from "../../utils/toastCustom";
+import { eToast, wToast, sToast } from "../../utils/toastCustom";
 import swal from 'sweetalert';
 // import API from "../../utils/host.config";
 
 const ListAcount = () => {
 
+    const [openDeleteModal, setOpenDeleteModal] = useState(false)
+    const handleDeleteModal = () => setOpenDeleteModal(prev => !prev)
+    const [usersId, setUsersId] = useState({
+        nama: "",
+        email: "",
+    })
+
     const { data: users, error: errorUser } = useSWR(
-        `http://127.0.0.1:8000/api/login`,
+        `http://127.0.0.1:8000/api/users/id`,
         (url) =>
             axios(url, {
                 headers: {
@@ -39,6 +47,41 @@ const ListAcount = () => {
             },
         }
     );
+
+    const handleOpenDeleteModal = (data) => {
+        setUsersId({
+            nik: data.nik,
+            nama: data.nama,
+            email: data.email,
+        })
+        setOpenDeleteModal(true)
+    }
+
+    const onDelete = async (id) => {
+        await axios.delete(`http://127.0.0.1:8000/api/users/id`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("xtoken"),
+            },
+        }).then(result => {
+            if (result.data.code === 200) {
+                toast.success(result.data.message, sToast);
+            } else {
+                toast.success(result.data.message, wToast);
+            }
+        }).catch(err => {
+            if (err.code === "ECONNABORTED") {
+                toast.success(
+                    "Tidak dapat menjangkau Server, Periksa koneksi anda dan ulangi beberapa saat lagi.",
+                    eToast
+                );
+            } else if (err.response) {
+                toast.error(err.response.data.message, eToast);
+            } else {
+                toast.error(err.message, eToast);
+            }
+        })
+        mutate(`http://127.0.0.1:8000/api/users/id`)
+    }
 
     if (errorUser) {
         swal({
@@ -84,6 +127,9 @@ const ListAcount = () => {
                                         <thead className="bg-gray-50">
                                             <tr>
                                                 <th scope="col" className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    ID
+                                                </th>
+                                                <th scope="col" className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     Name
                                                 </th>
                                                 <th scope="col" className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -102,11 +148,17 @@ const ListAcount = () => {
                                                     </tr>
                                                 ) : users?.map((element, i) => (
                                                     <tr key={i}>
-                                                        <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                                        <td className="p-4 whitespace-nowrap text-sm text-left font-normal text-gray-900">
+                                                            {element?.id}
+                                                        </td>
+                                                        <td className="p-4 whitespace-nowrap text-sm text-left font-normal text-gray-900">
                                                             {element?.name}
                                                         </td>
-                                                        <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                                        <td className="p-4 whitespace-nowrap text-sm text-left font-normal text-gray-500">
                                                             {element?.email}
+                                                        </td>
+                                                        <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                                            <IconButton onClick={() => handleOpenDeleteModal(element)}><DeleteIcon /></IconButton>
                                                         </td>
                                                         {/* <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                                                             <div className="flex align-middle items-center">
@@ -127,6 +179,12 @@ const ListAcount = () => {
                         </div>
                     </div>
                 </div>
+                <ModalDelete
+                    data={usersId}
+                    open={openDeleteModal}
+                    setOpen={handleDeleteModal}
+                    handleDelete={() => onDelete(usersId.id)}
+                />
             </div>
         </LayoutDashboard>
     )

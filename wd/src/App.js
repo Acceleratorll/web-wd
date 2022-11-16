@@ -10,6 +10,7 @@ import Register from './pages/user/Register';
 import AdminNew from './pages/Admin';
 import Template from './pages/template/Template';
 import MasterForm from './pages/user/MultiStepForm/MasterForm';
+import Dashboard from './pages/user/Dashboard';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/masuk" element={<Login />} />
           <Route path="/buat_undangan" element={<LandingPage />} />
           <Route path="/FAQ" element={<Faq />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           {/* <Route path="/admin" element={<Admin />} /> */}
           <Route path="/admin/*" element={<AdminNew />} />
           <Route path="/template" element={<Template />} />

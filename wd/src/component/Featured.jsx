@@ -1,66 +1,6 @@
 import React from 'react'
-import axios from "axios";
-import useSWR from "swr";
-import swal from "sweetalert";
-import toast from "react-hot-toast";
-import { eToast, wToast } from "../utils/toastCustom";
-const API_URL = 'http://jsonplaceholder.typicode.com';
 
 const Featured = () => {
-
-    const { data: blog, error: errorBlog } = useSWR(
-        `https://jsonplaceholder.typicode.com/posts`,
-        (url) =>
-            axios(url, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("xtoken"),
-                },
-                timeout: 1000 * 60,
-            }).then((data) => data.data),
-        {
-            refreshWhenOffline: true,
-            loadingTimeout: 45000, //slow network (2G, <= 70Kbps) default 3s
-            onLoadingSlow: () => toast.error("Koneksi Anda Buruk", wToast),
-            onError: (err) => {
-                if (err.code === "ECONNABORTED") {
-                    toast.error(
-                        "Tidak dapat menjangkau Server, Periksa koneksi anda dan ulangi beberapa saat lagi.",
-                        eToast
-                    );
-                } else if (err.response) {
-                    toast.error(err.data.message, eToast);
-                } else {
-                    toast.error(err.message, eToast);
-                }
-            },
-        }
-    );
-
-    if (errorBlog) {
-        swal({
-            title: "Peringatan",
-            text: errorBlog.message,
-            icon: "error",
-            closeOnClickOutside: false,
-            buttons: {
-                catch: {
-                    text: "Tutup",
-                    value: "oke",
-                    className: "mx-auto",
-                },
-            },
-        }).then((value) => {
-            switch (value) {
-                case "oke":
-                    if (errorBlog.status === 401) {
-                        window.location.reload();
-                    }
-                    break;
-                default:
-                    return;
-            }
-        });
-    }
 
     return (
         <section id='featured' className="bg-white dark:bg-gray-900">
@@ -70,19 +10,6 @@ const Featured = () => {
                     {/* <p className="text-gray-500 sm:text-xl dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p> */}
                 </div>
                 <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
-                    {!blog ? (
-                        <div>
-                            <p>Data Belom Tersedia</p>
-                        </div>
-                    ) : (
-                        blog?.map((element, index) => (
-                            <div key={index} className="">
-                                <p>{element.userId}</p>
-                                <p>{element.title}</p>
-                                <p>{element.body}</p>
-                            </div>
-                        ))
-                    )}
                     <div>
                         <div className="flex mx-auto justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 bg-blue-500">
                             <svg className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
