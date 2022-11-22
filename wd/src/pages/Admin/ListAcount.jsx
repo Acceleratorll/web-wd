@@ -21,7 +21,7 @@ const ListAcount = () => {
     })
 
     const { data: users, error: errorUser } = useSWR(
-        `http://127.0.0.1:8000/api/users/id`,
+        `http://localhost:8000/api/users`,
         (url) =>
             axios(url, {
                 headers: {
@@ -58,7 +58,7 @@ const ListAcount = () => {
     }
 
     const onDelete = async (id) => {
-        await axios.delete(`http://127.0.0.1:8000/api/users/id`, {
+        await axios.delete(`http://localhost:8000/api/users`, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("xtoken"),
             },
@@ -80,7 +80,7 @@ const ListAcount = () => {
                 toast.error(err.message, eToast);
             }
         })
-        mutate(`http://127.0.0.1:8000/api/users/id`)
+        mutate(`http://localhost:8000/api/users`)
     }
 
     if (errorUser) {

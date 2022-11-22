@@ -47,7 +47,7 @@ const Login = () => {
             //Call
             await axios
                 .post(
-                    `/login`,
+                    `http://127.0.0.1:8000/api/login`,
                     {
                         email: formik.values.email,
                         password: formik.values.password,
@@ -94,17 +94,17 @@ const Login = () => {
         }
     };
 
-    // if (user?.isAuth) {
-    //     if (user.value.authorize === "admin") {
-    //         return <Navigate to="/admin" replace />;
-    //     } else if (user.value.authorize === "aduan_masyarakat") {
-    //         return <Navigate to="/saran-aduan" replace />;
-    //     } else if (user.value.authorize === "kim_kegiatan") {
-    //         return <Navigate to="/kegiatan" replace />;
-    //     } else if (user.value.authorize === "fasilitasi_pertanahan") {
-    //         return <Navigate to="/pertanahan" replace />;
-    //     }
-    // }
+    if (user?.isAuth) {
+        if (user.value.authorize === "true") {
+            return <Navigate to="dashboard" replace />;
+        } else if (user.value.authorize === "aduan_masyarakat") {
+            return <Navigate to="/dashboard" replace />;
+        } else if (user.value.authorize === "kim_kegiatan") {
+            return <Navigate to="/dashboard" replace />;
+        } else if (user.value.authorize === "fasilitasi_pertanahan") {
+            return <Navigate to="/dashboard" replace />;
+        }
+    }
 
     return (
         <>
