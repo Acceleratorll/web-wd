@@ -13,11 +13,8 @@ import toast from "react-hot-toast";
 import { eToast, sToast, wToast } from "../../utils/toastCustom";
 import { Navigate } from "react-router-dom";
 import { login } from "../../redux/userSlice";
-import AuthUser from './Auth/Auth'
 
 const Login = () => {
-    const { http } = AuthUser();
-
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const [isAuthenticating, setIsAuthenticating] = useState(false);
