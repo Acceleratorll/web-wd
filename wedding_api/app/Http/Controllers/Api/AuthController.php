@@ -44,12 +44,12 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-        return $this->apiSuccess([
-            'token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user,
-        ]);
+        // $token = $user->createToken('auth_token')->plainTextToken;
+        // return $this->apiSuccess([
+        //     'token' => $token,
+        //     'token_type' => 'Bearer',
+        //     'user' => $user,
+        // ]);
     }
 
     public function logout()

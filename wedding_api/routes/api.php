@@ -65,7 +65,7 @@ Route::post('/invitation/place', [PlaceController::class, 'index']);
 Route::post('/invitation/place/create', [PlaceController::class, 'create']);
 
 // ShareLinkGan
-Route::Get('/undangan/{id}', [GuestController::class, 'index']);
+Route::get('/undangan/{id}', [GuestController::class, 'index']);
 
 // GUEST
 Route::post('/guest', [GuestController::class, 'index']);
