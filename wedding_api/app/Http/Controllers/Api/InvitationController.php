@@ -23,7 +23,7 @@ class InvitationController extends Controller
 
         $invitation = Invitations::create([
             'template_id' => $request['template_id'],
-            'template_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'date' => $request['date'],
             'time_start' => $request['time_start'],
             'time_end' => $request['time_end'],
