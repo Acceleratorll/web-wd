@@ -1,10 +1,50 @@
 import React from "react";
 import { Transition } from "@headlessui/react";
 import { Link, NavLink } from 'react-router-dom'
+import useSWR, { mutate } from "swr";
+import toast from 'react-hot-toast';
 import Logo from '../assets/images/favicon.svg'
+import axios from 'axios';
 import { useState } from 'react'
+import { eToast, wToast, sToast } from "../utils/toastCustom";
+import AuthUser from "../pages/user/Auth/AuthUser";
 
 const Header = () => {
+
+    const { token, logout } = AuthUser();
+    const logoutUser = () => {
+        if (token != undefined) {
+            logout();
+        }
+    }
+
+    const { data: users, error: errorUser } = useSWR(
+        `http://localhost:8000/api/users`,
+        (url) =>
+            axios(url, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("xtoken"),
+                },
+                timeout: 1000 * 60,
+            }).then((data) => data.data),
+        {
+            refreshWhenOffline: true,
+            loadingTimeout: 45000, //slow network (2G, <= 70Kbps) default 3s
+            onLoadingSlow: () => toast.error("Koneksi Anda Buruk", wToast),
+            onError: (err) => {
+                if (err.code === "ECONNABORTED") {
+                    toast.error(
+                        "Tidak dapat menjangkau Server, Periksa koneksi anda dan ulangi beberapa saat lagi.",
+                        eToast
+                    );
+                } else if (err.response) {
+                    toast.error(err.data.message, eToast);
+                } else {
+                    toast.error(err.message, eToast);
+                }
+            },
+        }
+    );
 
     const [isOpen, setIsOpen] = useState(false);
     return (
@@ -111,9 +151,15 @@ const Header = () => {
                             <Link to="/FAQ" className="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium">
                                 FAQ
                             </Link>
-                            <Link to="/masuk">
-                                <button type="button" className="ml-3 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Masuk</button>
-                            </Link>
+                            {
+                                !users ? (
+                                    <button type="button" onClick={logoutUser} className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">Log Out</button>
+                                ) : users?.map(() => {
+                                    <Link to="/masuk">
+                                        <button type="button" className="ml-3 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Masuk</button>
+                                    </Link>
+                                })
+                            }
                         </div>
                     </div>
                 )}

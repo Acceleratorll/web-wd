@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "content-hash": "d2a466294c32c6f689f814a3ddcea72f",
-=======
-    "content-hash": "a1b65f0dddab6162a5c8bf2279b7d1ee",
->>>>>>> 460a10e7efb74824f418ad7298484edbd2747fe6
     "packages": [
         {
             "name": "brick/math",
@@ -5429,7 +5425,6 @@
             "time": "2022-09-12T13:28:28+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "tomfordrumm/jwt-auth",
             "version": "dev-develop",
             "source": {
@@ -5481,26 +5476,6 @@
                 "psr-4": {
                     "Tymon\\JWTAuth\\": "src/"
                 }
-=======
-            "name": "ultramsg/whatsapp-php-sdk",
-            "version": "2.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ultramsg/whatsapp-php-sdk.git",
-                "reference": "a4287d176d8ec1a2c44e62d4d178103e2cefa360"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ultramsg/whatsapp-php-sdk/zipball/a4287d176d8ec1a2c44e62d4d178103e2cefa360",
-                "reference": "a4287d176d8ec1a2c44e62d4d178103e2cefa360",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "ultramsg.class.php"
-                ]
->>>>>>> 460a10e7efb74824f418ad7298484edbd2747fe6
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5508,7 +5483,6 @@
             ],
             "authors": [
                 {
-<<<<<<< HEAD
                     "name": "Sean Tymon",
                     "email": "tymon148@gmail.com",
                     "homepage": "https://tymon.xyz",
@@ -5541,25 +5515,6 @@
                 }
             ],
             "time": "2022-07-14T10:56:11+00:00"
-=======
-                    "name": "ultramsg.com",
-                    "email": "info@ultramsg.com"
-                }
-            ],
-            "description": "Lightweight PHP library for WhatsApp API to send the whatsappp messages in PHP provided by ultramsg.com",
-            "homepage": "https://ultramsg.com",
-            "keywords": [
-                "whatsapp-api",
-                "whatsapp-api-php",
-                "whatsapp-bot",
-                "whatsapp-chat"
-            ],
-            "support": {
-                "issues": "https://github.com/ultramsg/whatsapp-php-sdk/issues",
-                "source": "https://github.com/ultramsg/whatsapp-php-sdk/tree/2.0.7"
-            },
-            "time": "2022-08-24T15:29:46+00:00"
->>>>>>> 460a10e7efb74824f418ad7298484edbd2747fe6
         },
         {
             "name": "vlucas/phpdotenv",

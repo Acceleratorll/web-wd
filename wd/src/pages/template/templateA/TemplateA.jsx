@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-const Template = () => {
+const TemplateA = () => {
     return (
         <>
             <header className="h-screen bg-fixed bg-center bg-cover custom-img mb-10">
@@ -296,4 +296,4 @@ const Template = () => {
     )
 }
 
-export default Template
+export default TemplateA

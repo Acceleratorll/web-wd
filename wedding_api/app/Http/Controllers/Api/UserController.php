@@ -38,6 +38,12 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
-        
+    }
+
+    public function destroy($id)
+    {
+        User::whereId($id)->first()->delete();
+
+        return response()->json('success');
     }
 }

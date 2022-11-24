@@ -5,6 +5,8 @@ const initialStateValue = {
   id: 0,
   name: "",
   email: "",
+  phone: "",
+  status: "",
   authorize: "",
   exp: 0,
   iat: 0,

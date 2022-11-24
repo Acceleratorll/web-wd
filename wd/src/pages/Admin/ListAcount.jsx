@@ -109,6 +109,15 @@ const ListAcount = () => {
         });
     }
 
+    const [user, setUsers] = useState([]);
+
+    const deleteUser = (id) => {
+        delete ('http://localhost:8000/api/users/' + id).then(res => {
+
+        })
+    }
+    console.log(user)
+
     return (
         <LayoutDashboard>
             <div className="w-full grid grid-cols-1 gap-4 min-h-screen">
@@ -158,7 +167,7 @@ const ListAcount = () => {
                                                             {element?.email}
                                                         </td>
                                                         <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                                            <IconButton onClick={() => handleOpenDeleteModal(element)}><DeleteIcon /></IconButton>
+                                                            <IconButton onClick={() => { deleteUser(user.id) }}><DeleteIcon /></IconButton>
                                                         </td>
                                                         {/* <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                                                             <div className="flex align-middle items-center">

@@ -13,12 +13,15 @@ import toast from "react-hot-toast";
 import { eToast, sToast, wToast } from "../../utils/toastCustom";
 import { Navigate } from "react-router-dom";
 import { login } from "../../redux/userSlice";
+import AuthUser from './Auth/AuthUser';
 
 const Login = () => {
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const [isAuthenticating, setIsAuthenticating] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+
+    const { setToken } = AuthUser();
 
     const formik = useFormik({
         initialValues: {
@@ -55,24 +58,12 @@ const Login = () => {
                     { timeout: 1000 * 45 }
                 )
                 .then((result) => {
-                    console.log(result.data)
                     formik.resetForm();
+                    setToken(result.data.data.user, result.data.data.token);
                     setIsAuthenticating(false);
                     if (result.data.code === 200) {
-                        if (result.data.results.statusAkun === "Belum Verifikasi Akun") {
-                            toast.success(
-                                "Akun anda belum di verifikasi oleh admin, silahkan hubungi admin!",
-                                wToast
-                            );
-                        } else if (result.data.results.statusAkun === "tolak") {
-                            toast.success(
-                                "Mohon maaf akun anda di anggap tidak valid!",
-                                wToast
-                            );
-                        } else {
-                            toast.success(result.data.message, sToast);
-                            dispatch(login(result.data.results.payload));
-                        }
+                        toast.success(result.data.message, sToast);
+                        dispatch(login(result.data.results.payload));
                     } else {
                         toast.success(result.data.message, wToast);
                     }
@@ -95,14 +86,8 @@ const Login = () => {
     };
 
     if (user?.isAuth) {
-        if (user.value.authorize === "true") {
-            return <Navigate to="dashboard" replace />;
-        } else if (user.value.authorize === "aduan_masyarakat") {
-            return <Navigate to="/dashboard" replace />;
-        } else if (user.value.authorize === "kim_kegiatan") {
-            return <Navigate to="/dashboard" replace />;
-        } else if (user.value.authorize === "fasilitasi_pertanahan") {
-            return <Navigate to="/dashboard" replace />;
+        if (user.value.authorize === "admin") {
+            return <Navigate to="profile" replace />;
         }
     }
 

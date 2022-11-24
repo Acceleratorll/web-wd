@@ -11,7 +11,7 @@ const Hero = () => {
                     <h1 className="text-left max-w-2xl mb-4 text-4xl font-extrabold lg:leading-9 tracking-tight md:text-5xl xl:text-6xl dark:text-white">Website Undangan Pernikahan Online.</h1>
                     <p className="text-left max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400 lg:leading-9">Undang orang-orang terdekat dalam momen kebahagiaan pernikahan Anda dengan cara yang unik dan menarik menggunakan datengdong. Coba sekarang juga! </p>
                     <div className="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                        <Link to="/isiData">
+                        <Link to="/pilihTemplate">
                             <button type="button" className="inline-flex items-center justify-center w-full px-5 py-3 mb-2  text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:w-auto focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                 <img src={IconAdd} alt="" className='"w-4 h-4 mr-2' />
                                 Buat Sekarang

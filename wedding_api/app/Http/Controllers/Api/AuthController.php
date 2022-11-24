@@ -18,10 +18,11 @@ class AuthController extends Controller
 {
     use ApiResponse;
 
-    public function login(LoginRequest $request){
+    public function login(LoginRequest $request)
+    {
         $validated = $request->validated();
-        
-        if(!Auth::attempt($validated)){
+
+        if (!Auth::attempt($validated)) {
             return $this->apiError('Credential not match', Response::HTTP_UNAUTHORIZED);
         }
         $user = User::where('email', $validated['email'])->first();
@@ -30,10 +31,12 @@ class AuthController extends Controller
             'token' => $token,
             'token_type' => 'Bearer',
             'user' => $user,
+            'user' => auth()->user()
         ]);
     }
 
-    public function register(RegisterRequest $request){
+    public function register(RegisterRequest $request)
+    {
         $validated = $request->validated();
         $user = User::create([
             'name' => $validated['name'],
@@ -49,15 +52,16 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(){
-        try{
+    public function logout()
+    {
+        try {
             auth()->user()->tokens()->delete();
             return $this->apiSuccess('Token Revoked');
-        } catch(\Throwable $e){
+        } catch (\Throwable $e) {
             throw new HttpResponseException($this->apiError(
                 null,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
             ));
-        }        
+        }
     }
 }

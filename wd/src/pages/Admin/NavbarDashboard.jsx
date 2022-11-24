@@ -4,15 +4,19 @@ import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/userSlice";
+import { useNavigate } from 'react-router-dom';
 
 const NavbarDashboard = ({ open, setOpen }) => {
+
+    const navigate = useNavigate();
     const dispatch = useDispatch()
 
     const user = useSelector((state) => state.user);
 
     const onLogout = () => {
-        dispatch(logout())
+        sessionStorage.clear()
         alert("Akun berhasil keluar")
+        navigate('/');
     }
     // The layzy dog
     return (
