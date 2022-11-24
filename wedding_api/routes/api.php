@@ -35,15 +35,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/invitation', [InvitationController::class, 'create']);
 });
 
-// Route::post('/invitation/bride', [BrideController::class, 'index']);
-// Route::post('/invitation/bride/create', [BrideController::class, 'create']);
-// Route::post('/invitation/groom', [GroomController::class, 'index']);
-// Route::post('/invitation/groom/create', [GroomController::class, 'create']);
-// Route::post('/invitation/place', [PlaceController::class, 'index']);
-// Route::post('/invitation/place/create', [PlaceController::class, 'create']);
-
 // ShareLinkGan
-Route::Get('/undangan/{id}', [GuestController::class, 'index']);
+Route::get('/undangan/{id}', [GuestController::class, 'index']);
 
 // GUEST
 Route::post('/guest', [GuestController::class, 'index']);

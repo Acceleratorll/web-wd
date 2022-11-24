@@ -24,7 +24,7 @@ class UserController extends Controller
             $data = [
                 'name' => $validated['name'],
                 'email' => $validated['email'],
-                'password' => Hash::make($request['password']),
+                'password' => $request['password'],
             ];
         } else {
             $data = [
@@ -38,6 +38,5 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
-        
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bride\CreateBrideRequest;
+use App\Models\Brides;
+use App\Models\Groom;
 use App\Models\Invitations;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,19 +23,48 @@ class InvitationController extends Controller
 
         $invitation = Invitations::create([
             'template_id' => $request['template_id'],
-            'email' => $request['email'],
-            'password' => $request['password'],
+            'template_id' => auth()->user()->id,
+            'date' => $request['date'],
+            'time_start' => $request['time_start'],
+            'time_end' => $request['time_end'],
         ]);
 
         $this->createBride($request);
+        $this->createGroom($request);
+        $this->createPlace($request);
+        $this->createGallery($request);
     }
 
     public function createBride($request)
     {
-        $Bride = Invitations::create([
+        $Bride = Brides::create([
             'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => $request['password'],
+            'father' => $request['father'],
+            'mother' => $request['mother'],
+        ]);
+    }
+
+    public function createGroom($request)
+    {
+        $Bride = Groom::create([
+            'name' => $request['name'],
+            'father' => $request['father'],
+            'mother' => $request['mother'],
+        ]);
+    }
+
+    public function createPlace($request)
+    {
+        $Bride = Groom::create([
+            'name' => $request['name'],
+            'place_desc' => $request['place_desc'],
+        ]);
+    }
+
+    public function createGallery($request)
+    {
+        $Bride = Groom::create([
+            'name' => $request['name'],
         ]);
     }
 
