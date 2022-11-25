@@ -24,7 +24,9 @@ class CreateGroomRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'father' => 'string|max:255',
+            'mother' => 'string|max:255',
         ];
     }
 }
