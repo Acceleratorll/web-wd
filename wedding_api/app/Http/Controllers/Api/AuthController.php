@@ -27,12 +27,14 @@ class AuthController extends Controller
         }
         $user = User::where('email', $validated['email'])->first();
         $token = $user->createToken('auth_token')->plainTextToken;
-        return $this->apiSuccess([
-            'token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user,
-            'user' => auth()->user()
-        ]);
+        $data =
+            $this->apiSuccess([
+                'token' => $token,
+                'token_type' => 'Bearer',
+                'user' => $user,
+                'user' => auth()->user()
+            ]);
+        return response()->json(['success' => true, 'data' => $data]);
     }
 
     public function register(RegisterRequest $request)
@@ -43,6 +45,8 @@ class AuthController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
+
+        return response()->json(['success' => true, 'data' => $user]);
 
         // $token = $user->createToken('auth_token')->plainTextToken;
         // return $this->apiSuccess([
