@@ -21,6 +21,59 @@ use PHPMailer\PHPMailer\Exception;
 
 class InvitationController extends Controller
 {
+    public function share()
+    {
+        // $validator = Validator::make($request->all(), [
+        //     'email' => 'required|email|unique:subscribers'
+        // ]);
+        // if ($validator->fails()) {
+        //     return new JsonResponse(
+        //         [
+        //             'success' => false,
+        //             'message' => $validator->errors()
+        //         ],
+        //         422
+        //     );
+        // }
+        // $email = $request->all()['email'];
+        // $subscriber = Subscriber::create([
+        //     'email' => $email
+        // ]);
+        // if ($subscriber) {
+        //     Mail::to($email)->send(new Subscribe($email));
+        //     return new JsonResponse(
+        //         [
+        //             'success' => true,
+        //             'message' => "Thank you for subscribing to our email, please check your inbox"
+        //         ],
+        //         200
+        //     );
+        // }
+    }
+
+    public function index(){
+        $user_id = auth()->user()->id;
+        $invi = Invitations::where('user_id', $user_id)->get();
+        return response()->json(['success' => true, 'data' => [
+            'invi' => $invi,
+        ]]);
+    }
+
+    public function show($id){
+        $invi = Invitations::where('id', $id)->get();
+        $bride = Brides::where('invitation_id', $id)->get();
+        $groom = Groom::where('invitation_id', $id)->get();
+        $place = Place::where('invitation_id', $id)->get();
+        $gallery = Gallery::where('invitation_id', $id)->get();
+        return response()->json(['success' => true, 'data' =>[
+            'invi' => $invi,
+            'bride' => $bride,
+            'groom' => $groom,
+            'place' => $place,
+            'gallery' => $gallery
+        ]]);
+    }
+
     public function createInvit(Request $request)
     {
         $invitation = Invitations::create([
@@ -89,33 +142,4 @@ class InvitationController extends Controller
         return $gallery;
     }
 
-    public function share()
-    {
-        // $validator = Validator::make($request->all(), [
-        //     'email' => 'required|email|unique:subscribers'
-        // ]);
-        // if ($validator->fails()) {
-        //     return new JsonResponse(
-        //         [
-        //             'success' => false,
-        //             'message' => $validator->errors()
-        //         ],
-        //         422
-        //     );
-        // }
-        // $email = $request->all()['email'];
-        // $subscriber = Subscriber::create([
-        //     'email' => $email
-        // ]);
-        // if ($subscriber) {
-        //     Mail::to($email)->send(new Subscribe($email));
-        //     return new JsonResponse(
-        //         [
-        //             'success' => true,
-        //             'message' => "Thank you for subscribing to our email, please check your inbox"
-        //         ],
-        //         200
-        //     );
-        // }
-    }
 }

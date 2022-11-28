@@ -25,30 +25,31 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [UserController::class, 'index']);
     Route::post('/profile/{id}', [UserController::class, 'update']);
+    Route::get('/listInvitation', [InvitationController::class, 'index']);
+    Route::get('/showInvitation/{id}', [InvitationController::class, 'show']);
     Route::post('/invitation', [InvitationController::class, 'createInvit']);
 });
 
-// ShareLinkGan
-Route::get('/undangan/{id}', [GuestController::class, 'index']);
-
 // GUEST
-Route::post('/tamu', [GuestController::class, 'index']);
-Route::post('/guest/send', [GuestController::class, 'send']);
+Route::post('/undangan/tamu', [GuestController::class, 'index']);
+Route::post('/undangan/tamu/kirim', [GuestController::class, 'ucapan']);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-// Route::get('/users', function () {
-    //     $users = User::get();
-    //     return response()->json($users);
+    //     return $request->user();
     // });
     
-    // Route::get('/users/{id}', function ($id) {
+    // Route::get('/users', function () {
         //     $users = User::get();
-//     return response()->json($users . $id);
-// });
-
+        //     return response()->json($users);
+        // });
+        
+        // Route::get('/users/{id}', function ($id) {
+            //     $users = User::get();
+            //     return response()->json($users . $id);
+            // });
+            
 // Route::get('/users/{id}', function ($id) {
 //     return 'users' . $id;
 // });
+// ShareLinkGan
+// Route::get('/undangan/{id}', [GuestController::class, 'index']);
