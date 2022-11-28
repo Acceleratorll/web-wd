@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\InvitationController;
 use App\Http\Controllers\Api\UserController;
@@ -33,6 +34,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 // GUEST
 Route::post('/undangan/tamu', [GuestController::class, 'index']);
 Route::post('/undangan/tamu/kirim', [GuestController::class, 'ucapan']);
+
+//Admin
+Route::get('/admin/template', [AdminController::class, 'index']);
+Route::post('/admin/template/add', [AdminController::class, 'add']);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //     return $request->user();

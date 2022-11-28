@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Template extends Model
 {
     use HasFactory;
-    
+
+    protected $fillable = [
+        'name',
+        'desc',
+    ];
+
     public function invitation()
     {
         return $this->hasMany(Invitations::class);
