@@ -25,6 +25,7 @@ class CreateInvitationrRequest extends FormRequest
     {
         return [
             'template_id' => 'required|int|max:25',
+            'user_id' => 'required|int|max:25',
             'date' => 'date|max:255',
             'time_start' => 'time|max:255',
             'time_end' => 'time|max:255'

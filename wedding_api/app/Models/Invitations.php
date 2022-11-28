@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Invitations extends Model
 {
     protected $fillable = [
+        'template_id',
+        'user_id',
         'date',
         'time_start',
         'time_end',

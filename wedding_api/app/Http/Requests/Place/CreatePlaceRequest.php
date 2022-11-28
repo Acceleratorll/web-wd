@@ -24,7 +24,7 @@ class CreatePlaceRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name_place' => 'required|string|max:255',
             'place_desc' => 'string|max:255'
         ];
     }

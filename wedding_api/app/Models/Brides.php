@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Brides extends Model
 {
     protected $fillable = [
+        'invitation_id',
         'name',
         'father',
         'mother',

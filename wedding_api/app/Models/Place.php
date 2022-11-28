@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Place extends Model
 {
     protected $fillable = [
+        'invitation_id',
         'name',
         'place_desc',
     ];

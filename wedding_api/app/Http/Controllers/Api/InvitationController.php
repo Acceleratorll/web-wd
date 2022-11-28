@@ -5,22 +5,24 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bride\CreateBrideRequest;
 use App\Models\Brides;
+use App\Models\Gallery;
 use App\Models\Groom;
 use App\Models\Invitations;
+use App\Models\Place;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer-master/src/Exception.php';
-require 'PHPMailer-master/src/PHPMailer.php';
-require 'PHPMailer-master/src/SMTP.php';
+// require 'PHPMailer-master/src/Exception.php';
+// require 'PHPMailer-master/src/PHPMailer.php';
+// require 'PHPMailer-master/src/SMTP.php';
 
 class InvitationController extends Controller
 {
     public function createInvit(Request $request)
     {
-
         $invitation = Invitations::create([
             'template_id' => $request['template_id'],
             'user_id' => auth()->user()->id,
@@ -29,43 +31,62 @@ class InvitationController extends Controller
             'time_end' => $request['time_end'],
         ]);
 
-        $this->createBride($request);
-        $this->createGroom($request);
-        $this->createPlace($request);
-        $this->createGallery($request);
+        $invit_id = $invitation->id;
+        
+        $bride = $this->createBride($request, $invit_id);
+        $groom = $this->createGroom($request, $invit_id);
+        $place = $this->createPlace($request, $invit_id);
+        $gallery = $this->createGallery($request, $invit_id);
+        
+        return response()->json(['success' => true, 'data' => [
+            'invi' => $invitation, 
+            'bride' => $bride,
+            'groom' => $groom,
+            'place' => $place,
+            'gallery' => $gallery
+            ]]);
     }
 
-    public function createBride($request)
+
+    public function createBride($request, $invit_id)
     {
-        $Bride = Brides::create([
+        $bride = Brides::create([
+            'invitation_id' => $invit_id,
             'name' => $request['name'],
             'father' => $request['father'],
             'mother' => $request['mother'],
         ]);
+        return $bride;
     }
 
-    public function createGroom($request)
+    public function createGroom($request, $invit_id)
     {
-        $Bride = Groom::create([
-            'name' => $request['name'],
-            'father' => $request['father'],
-            'mother' => $request['mother'],
+        $groom = Groom::create([
+            'invitation_id' => $invit_id,
+            'name' => $request['name_groom'],
+            'father' => $request['father_groom'],
+            'mother' => $request['mother_groom'],
         ]);
+        return $groom;
     }
 
-    public function createPlace($request)
+    public function createPlace($request, $invit_id)
     {
-        $Bride = Groom::create([
-            'name' => $request['name'],
+        $place = Place::create([
+            'name' => $request['name_place'],
+            'invitation_id' => $invit_id,
             'place_desc' => $request['place_desc'],
         ]);
+        return $place;
     }
 
-    public function createGallery($request)
+    public function createGallery($request, $invit_id)
     {
-        $Bride = Groom::create([
-            'name' => $request['name'],
+        $gallery = Gallery::create([
+            'name' => $request['name_gallery'],
+            'invitation_id' => $invit_id,
         ]);
+        return $gallery;
     }
 
     public function share()
